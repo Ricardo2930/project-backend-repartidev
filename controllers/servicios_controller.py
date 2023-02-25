@@ -72,19 +72,3 @@ class ServiciosController:
                 'message': 'Internal server error',
                 'error': str(e)
             }, 500
-
-
-    def buscarProductos(self, precio):
-        try:
-            productos = ServiciosModel.query.filter_by(precio=precio).all()
-            response = []
-            for producto in productos:
-                response.append(producto.convertirJson())
-            return {
-                'data': response
-            }, 200
-        except Exception as e:
-            return {
-                'message': 'Internal server error',
-                'error': str(e)
-            }, 500

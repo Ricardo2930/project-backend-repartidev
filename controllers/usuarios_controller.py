@@ -56,18 +56,14 @@ class UsuariosController:
                 'email':usuario.email
             }) # aca definimos -- > user_id = get_jwt_identity() en categorias_router, en ruta protegida
             
+            refresh_token = create_refresh_token(identity = {
+                'id':usuario.id,
+                'email':usuario.email
+            })
             return {
-                'access_token': access_token
-            }
-            
-            # refresh_token = create_refresh_token(identity = {
-            #     'id':usuario.id,
-            #     'correo':usuario.correo
-            # })
-            # return {
-            #     'access_token': access_token,
-            #     'refresh_token': refresh_token
-            # } 
+                'access_token': access_token,
+                'refresh_token': refresh_token
+            } 
 
         except Exception as e:
             return {
@@ -75,25 +71,14 @@ class UsuariosController:
                 'error': str(e)
             }, 500
     
-    def refreshSesion (self, identity):
-        try:
-            if not identity:
-                return {
-                    'message' : 'Unauthorized'
-                },401
-            access_token = create_access_token (identity = identity)
-            return {
-                'access_token' : access_token
-            },200
+    def listarUsuarios(self):
+        usuarios = UsuariosModel.query.all()
+        response = []
+        for usuario in usuarios:
+            response.append(usuario.convertirJson())
+        return {
+            'data': response
+        }, 200
 
-        except Exception as e:
-           return {
-                'message': 'Internal server error',
-                'error': str(e)
-            },500
-    
-    # def __comprobarContraseña(self, contraseña, contra_hash): #contraseña hasheada, traiada desde la BD (POSTMAN)
-    #     return check_password_hash(contraseña, contra_hash)
-
-    def __encriptarContraseña (self, contraseña): #Método privado
+    def __encriptarContraseña (self, contraseña): #Método privado para encriptar contraseña
         return generate_password_hash (contraseña)

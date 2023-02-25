@@ -1,6 +1,6 @@
 from app import app
 from controllers.usuarios_controller import UsuariosController
-from flask_jwt_extended import get_jwt_identity, jwt_required
+from flask_jwt_extended import jwt_required
 from flask import request
 
 # Creamos la ruta para registrar al usuario
@@ -14,9 +14,9 @@ def usuariosAutenticar():
     controller = UsuariosController()
     return controller.iniciarSesion(request.json)
 
-# @app.route("/auth/refresh", methods=['GET'])
-# @jwt_required(refresh = True)
-# def usuariosRefresh():
-#     identity = get_jwt_identity()
-#     controller = UsuariosController()
-#     return controller.refreshSesion(identity)
+#Vamos a ptoteger esta ruta con jwt_required(). Para acceder en postman AUTHORIZATION - BEARER TOKEN - TOKEN 
+@app.route("/usuarios/listar", methods=['GET'])
+@jwt_required()
+def usuariosListar():
+    controller = UsuariosController()
+    return controller.listarUsuarios()

@@ -1,7 +1,7 @@
 from app import app
 from controllers.servicios_controller import ServiciosController
 from flask import request
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 
 @app.route("/servicios/crear", methods=['POST'])
@@ -11,12 +11,10 @@ def serviciosCrear(): #definimos la funcion
 
 #Vamos a ptoteger esta ruta con jwt_required(). Para acceder en postman AUTHORIZATION - BEARER TOKEN - TOKEN 
 @app.route("/servicios/listar", methods=['GET'])
-#@jwt_required()
+@jwt_required()
 def serviciosListar():
-    #user_id = get_jwt_identity()
-    #print(user_id)
     controller = ServiciosController()
-    return controller.listarServicios() #(user_id)
+    return controller.listarServicios()
 
 @app.route("/servicios/eliminar/<int:servicio_id>", methods=['DELETE'])
 def serviciosEliminar(servicio_id): #recibimos en la funcion
