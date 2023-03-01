@@ -79,6 +79,22 @@ class UsuariosController:
         return {
             'data': response
         }, 200
+        
+    def buscarUsuarios(self, usuarios_id):
+        try:
+            usuarios_ids = UsuariosModel.query.filter_by(id=usuarios_id)
+            #print(usuarios_ids)
+            response = []
+            for usuario in usuarios_ids:
+                response.append(usuario.verServicios())
+            return {
+                'data': response
+            }, 200
+        except Exception as e:
+            return {
+                'message': 'Internal server error',
+                'error': str(e)
+            }, 500
 
     def __encriptarContraseña (self, contraseña): #Método privado para encriptar contraseña
         return generate_password_hash (contraseña)

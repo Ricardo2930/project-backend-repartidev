@@ -1,4 +1,5 @@
 from app import db
+#from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, Integer, Text
 
 
@@ -17,6 +18,8 @@ class UsuariosModel (db.Model):
     tower = Column (Integer, nullable =False)
     dpto = Column (Integer, nullable =False)
     condominio = Column (String(500), nullable = False)
+    
+    #servicios_usuarios = relationship('UsuariosServiciosModel')
 
     def __init__(self, name,password,imageProfile,createdAt,email, lastName,dni,phone,tower,dpto,condominio) -> None:
         self.name = name
@@ -35,6 +38,7 @@ class UsuariosModel (db.Model):
         return self.name
 
     def convertirJson (self):
+         
         return {
             'id' : self.id,
             'name' : self.name,
@@ -46,4 +50,22 @@ class UsuariosModel (db.Model):
             'tower' : self.tower,
             'dpto' : self.dpto,
             'condominio' : self.condominio,
+        }
+        
+    def verServicios (self):
+        
+        # serviciosss = []
+        # for servicio_usuario in self.servicios_usuarios:
+        #     serviciosss.append(servicio_usuario.servicio.verServicios())
+            
+        return {
+            'id' : self.id,
+            'name' : self.name,
+            'email' : self.email,
+            'lastName' : self.lastName,
+            'phone' : self.phone,
+            'tower' : self.tower,
+            'dpto' : self.dpto,
+            'condominio' : self.condominio,
+            #'servicios': serviciosss
         }

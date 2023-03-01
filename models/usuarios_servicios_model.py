@@ -11,6 +11,7 @@ class UsuariosServiciosModel(db.Model):
     servicio_id = Column(Integer, ForeignKey('servicios.id'))
 
     usuario = relationship('UsuariosModel')
+    servicio = relationship('ServiciosModel')
 
     def __init__(self, servicio_id, usuario_id) -> None:
         self.servicio_id = servicio_id

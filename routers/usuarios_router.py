@@ -20,3 +20,8 @@ def usuariosAutenticar():
 def usuariosListar():
     controller = UsuariosController()
     return controller.listarUsuarios()
+
+@app.route("/usuarios/buscar/<int:usuario_id>", methods=['GET'])
+def usuariosBuscar(usuario_id):
+    controller = UsuariosController()
+    return controller.buscarUsuarios(usuario_id)
