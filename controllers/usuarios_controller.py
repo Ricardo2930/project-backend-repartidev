@@ -83,7 +83,6 @@ class UsuariosController:
     def buscarUsuarios(self, usuarios_id):
         try:
             usuarios_ids = UsuariosModel.query.filter_by(id=usuarios_id)
-            #print(usuarios_ids)
             response = []
             for usuario in usuarios_ids:
                 response.append(usuario.verServicios())

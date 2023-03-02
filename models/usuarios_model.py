@@ -1,5 +1,5 @@
 from app import db
-#from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, Integer, Text
 
 
@@ -19,7 +19,7 @@ class UsuariosModel (db.Model):
     dpto = Column (Integer, nullable =False)
     condominio = Column (String(500), nullable = False)
     
-    #servicios_usuarios = relationship('UsuariosServiciosModel')
+    servicios_usuarios = relationship('UsuariosServiciosModel')
 
     def __init__(self, name,password,imageProfile,createdAt,email, lastName,dni,phone,tower,dpto,condominio) -> None:
         self.name = name
@@ -54,9 +54,9 @@ class UsuariosModel (db.Model):
         
     def verServicios (self):
         
-        # serviciosss = []
-        # for servicio_usuario in self.servicios_usuarios:
-        #     serviciosss.append(servicio_usuario.servicio.verServicios())
+        servicios = []
+        for servicio_usuario in self.servicios_usuarios:
+            servicios.append(servicio_usuario.servicio.visualizarServicios())
             
         return {
             'id' : self.id,
@@ -67,5 +67,5 @@ class UsuariosModel (db.Model):
             'tower' : self.tower,
             'dpto' : self.dpto,
             'condominio' : self.condominio,
-            #'servicios': serviciosss
+            'servicios': servicios
         }

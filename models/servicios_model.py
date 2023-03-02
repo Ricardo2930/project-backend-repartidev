@@ -14,8 +14,8 @@ class ServiciosModel(db.Model):
     horario = Column(Text, nullable=False)
     estado = Column(Boolean, default=True)
    
-
     usuarios_servicios = relationship('UsuariosServiciosModel')
+
 
     def __init__(self, servicio, createdAt,doneAt,deleteAt,precio,horario,estado):
         self.servicio = servicio
@@ -25,6 +25,7 @@ class ServiciosModel(db.Model):
         self.precio = precio
         self.horario = horario
         self.estado = estado
+
 
     def convertirJson(self):
         usuarios = []
@@ -39,4 +40,16 @@ class ServiciosModel(db.Model):
             'horario': self.horario,
             'estado':self.estado,
             'usuarios': usuarios
+        }
+    
+    
+    def visualizarServicios(self):
+    
+        return {
+            #'id': self.id,
+            'servicio': self.servicio,
+            'precio': self.precio,
+            'horario': self.horario,
+            'estado':self.estado,
+    
         }
