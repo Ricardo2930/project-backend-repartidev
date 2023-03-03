@@ -28,5 +28,14 @@ def serviciosActualizar(servicio_id):
     return controller.actualizarServicio(servicio_id, request.json)
 
 
+@app.route("/servicios/paginado", methods=['GET'])
+def serviciosPaginado():
+    # print(request.args.get("page"))
+    # print(request.args.get("per_page"))
+    controller = ServiciosController()
+    return controller.paginadoServicios(request.args.get("page"),request.args.get("per_page"))
+    
+
+
 
 

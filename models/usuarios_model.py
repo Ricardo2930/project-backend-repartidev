@@ -59,9 +59,9 @@ class UsuariosModel (db.Model):
             servicios.append(servicio_usuario.servicio.visualizarServicios())
             
         return {
-            'id' : self.id,
+            #'id' : self.id,
             'name' : self.name,
-            'email' : self.email,
+            #'email' : self.email,
             'lastName' : self.lastName,
             'phone' : self.phone,
             'tower' : self.tower,

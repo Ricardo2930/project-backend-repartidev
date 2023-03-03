@@ -2,6 +2,7 @@ from models.servicios_model import ServiciosModel
 from models.usuarios_servicios_model import UsuariosServiciosModel
 from app import db
 
+
 class ServiciosController:
 
     def crearServicio(self, data):
@@ -72,3 +73,13 @@ class ServiciosController:
                 'message': 'Internal server error',
                 'error': str(e)
             }, 500
+            
+            
+    def paginadoServicios(self,page,per_page):
+        servicios = ServiciosModel.query.order_by(ServiciosModel.id.desc()).paginate(page=int(page),per_page=int(per_page),error_out=False)
+        response = []
+        for servicio in servicios:
+            response.append(servicio.convertirJson())
+        return {
+            'data': response
+        }, 200
