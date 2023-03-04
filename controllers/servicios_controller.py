@@ -76,7 +76,7 @@ class ServiciosController:
             
             
     def paginadoServicios(self,page,per_page):
-        servicios = ServiciosModel.query.order_by(ServiciosModel.id.desc()).paginate(page=int(page),per_page=int(per_page),error_out=False)
+        servicios = ServiciosModel.query.order_by(ServiciosModel.id.desc()).paginate(page=int(page),per_page=int(per_page),error_out=True,max_per_page=5)
         response = []
         for servicio in servicios:
             response.append(servicio.convertirJson())

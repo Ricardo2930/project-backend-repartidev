@@ -52,7 +52,7 @@ class UsuariosModel (db.Model):
             'condominio' : self.condominio,
         }
         
-    def verServicios (self):
+    def verUsuariosServicios (self):
         
         servicios = []
         for servicio_usuario in self.servicios_usuarios:

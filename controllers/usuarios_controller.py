@@ -85,7 +85,7 @@ class UsuariosController:
             usuarios_ids = UsuariosModel.query.filter_by(id=usuarios_id)
             response = []
             for usuario in usuarios_ids:
-                response.append(usuario.verServicios())
+                response.append(usuario.verUsuariosServicios())
             return {
                 'data': response
             }, 200
